@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  react-app1:
+    image: cristianr8/react-app:latest
+    ports:
+      - "3001:80"
+
+  react-app2:
+    image: cristianr8/react-app:latest
+    ports:
+      - "3002:80"
+
+  react-app3:
+    image: cristianr8/react-app:latest
+    ports:
+      - "3003:80"
+
+  load-balancer:
+    image: nginx:latest
+    ports:
+      - "4000:80"  # Cambié el puerto de 3000 a 4000
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - react-app1
+      - react-app2
+      - react-app3

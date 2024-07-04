@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k6-load-test
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: k6
+  template:
+    metadata:
+      labels:
+        app: k6
+    spec:
+      containers:
+      - name: k6
+        image: loadimpact/k6
+        args: ["run", "https://raw.githubusercontent.com/<your-repo>/load-test.js"]
